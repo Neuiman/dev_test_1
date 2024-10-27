@@ -1,4 +1,6 @@
 *.pyc
 .venv
-src/.env
+.env
 .idea
+alembic
+alembic.ini

@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:15
+    container_name: db_app
+    command: -p 5432
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    networks:
+      - custom
+
+
+networks:
+  custom:
+    driver: bridge

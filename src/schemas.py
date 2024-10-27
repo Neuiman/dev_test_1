@@ -1,14 +1,26 @@
+from enum import Enum
+from uuid import UUID
+
 from pydantic import BaseModel
+from sqlalchemy import TIMESTAMP
 
 
 class Ticker(BaseModel):
-    id: int
+    id: UUID
     ticker: str
     price: float | int
-    time: int
+    ticker_time: float
+
+    class Config:
+        from_attributes = True
 
 
-class TickerInput(BaseModel):
-    ticker: int
+class TickerAdd(BaseModel):
+    ticker: str
     price: float | int
-    time: int
+    ticker_time: float
+
+
+class ModelCurrency(str, Enum):
+    btc = "btc"
+    eth = "eth"
