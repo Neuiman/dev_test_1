@@ -1,13 +1,16 @@
+from contextlib import asynccontextmanager
 from datetime import datetime
 
 from fastapi import FastAPI
-
 from repository import TickerRepository
 from schemas import TickerAdd, ModelCurrency
 from ticker_service import TickerService
 
 
+
 app = FastAPI()
+
+
 
 
 @app.get("/all_data")

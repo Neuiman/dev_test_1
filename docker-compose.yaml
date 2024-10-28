@@ -2,8 +2,9 @@ version: "3.7"
 
 services:
   db:
+
     image: postgres:15
-    container_name: db_app
+    container_name: db
     command: -p 5432
     expose:
       - 5432
@@ -16,6 +17,20 @@ services:
     networks:
       - custom
 
+
+  web:
+
+    build:
+      dockerfile: Dockerfile
+    container_name: "web"
+    ports:
+      - "8000:8000"
+    networks:
+      - custom
+    depends_on:
+      - db
+    env_file:
+      - .env_dev
 
 networks:
   custom:

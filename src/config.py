@@ -1,16 +1,10 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from dotenv.main import load_dotenv
 
 import os
 
+load_dotenv()
 
-env_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.env')
+class settings:
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    URL_FOR_REVISION = os.getenv("URL_FOR_REVISION")
 
-
-class Settings(BaseSettings):
-    DATABASE_URL: str
-    URL_FOR_REVISION: str
-    DERIBIT_API: str
-    model_config = SettingsConfigDict(env_file=env_file_path, env_file_encoding='utf-8')
-
-
-settings = Settings()
