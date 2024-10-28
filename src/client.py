@@ -1,23 +1,25 @@
+import ssl
+
 import aiohttp
 import asyncio
 import time
-
 from aiohttp import ClientSession
-
+import certifi
 from database import async_session_maker
 from repository import TickerRepository
 from schemas import TickerAdd
 from ticker_service import TickerService
-import requests
+
 
 
 
 async def get_price(ticker):
     url = f"https://test.deribit.com/api/v2/public/get_index_price?index_name={ticker}_usd"
-
-    with requests.request('GET', url) as response:
-        data = response.json()
-        return data['result']['index_price']
+    ssl_context = ssl.create_default_context(cafile=certifi.where())
+    async with ClientSession() as session:
+        async with session.get(url, ssl=ssl_context) as response:
+            data = await response.json()
+            return data['result']['index_price']
 
 
 # Основная функция для выполнения задачи
