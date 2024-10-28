@@ -23,10 +23,9 @@ async def get_price(ticker):
 # Основная функция для выполнения задачи
 async def main():
         while True:
-            btc_price = await get_price('btc')
-            eth_price = await get_price('eth')
-            btc_ticker = TickerAdd(ticker="btc", price=btc_price, ticker_time=time.time())
-            eth_ticker = TickerAdd(ticker="eth", price=eth_price, ticker_time=time.time())
+
+            btc_ticker = TickerAdd(ticker="btc", price=await get_price('btc'), ticker_time=time.time())
+            eth_ticker = TickerAdd(ticker="eth", price=await get_price('eth'), ticker_time=time.time())
 
             async with async_session_maker() as db_session:
                 await TickerService(TickerRepository).add_ticker(ticker=btc_ticker)
