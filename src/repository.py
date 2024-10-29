@@ -12,15 +12,15 @@ class AbstractRepository(ABC):
     async def  add_one(self):
         raise NotImplementedError
 
-
+    @abstractmethod
     async def  get_all_data(self):
         raise NotImplementedError
 
-
+    @abstractmethod
     async def  get_data_by_date(self):
         raise NotImplementedError
 
-
+    @abstractmethod
     async def last_ticker_price(self):
         raise NotImplementedError
 
@@ -31,7 +31,6 @@ class TickerRepository(AbstractRepository):
 
     async def add_one(self, data: dict) -> UUID:
         async with async_session_maker() as session:
-            ticker = Ticker(**data)
             stmt = insert(self.model).values(**data).returning(self.model.id)
             result = await session.execute(stmt)
             await session.commit()
